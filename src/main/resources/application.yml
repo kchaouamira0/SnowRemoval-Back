@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: authentification
+  cloud:
+    config:
+      enabled: false
+  datasource:
+
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/authentif?autoReconnect=true&useSSL=false&createDatabaseIfNotExist=true
+    username: root
+    password:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+server:
+  port: 8081
