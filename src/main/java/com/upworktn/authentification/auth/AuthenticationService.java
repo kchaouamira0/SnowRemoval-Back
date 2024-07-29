@@ -4,6 +4,7 @@ package com.upworktn.authentification.auth;
 import com.upworktn.authentification.User.User;
 import com.upworktn.authentification.User.UserRepository;
 import com.upworktn.authentification.config.JwtService;
+import com.upworktn.authentification.config.SessionRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +19,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final SessionRegistry sessionRegistry;
     public AuthenticationResponse register(RegisterRequest request) {
 
         var user  = User.builder()
@@ -44,11 +46,15 @@ public class AuthenticationService {
         );
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
+        sessionRegistry.registerSession(user.getName());
 
         return AuthenticationResponse.builder().token(jwtToken)
                 .role(user.getRole())
                 .name(user.getName())
                 .build();
 
+    }
+    public void logout(String name) {
+        sessionRegistry.removeSession(name);
     }
 }
