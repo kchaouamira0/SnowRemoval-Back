@@ -7,9 +7,12 @@ spring:
   datasource:
 
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/authentif?autoReconnect=true&useSSL=false&createDatabaseIfNotExist=true
-    username: root
-    password:
+    url: jdbc:mysql://snow.mysql.database.azure.com:3306/authentif?autoReconnect=true&useSSL=true&createDatabaseIfNotExist=true
+    username: azure
+    password: Azerty@1234
+    #url: jdbc:mysql://localhost:3306/authentif?autoReconnect=true&useSSL=false&createDatabaseIfNotExist=true
+    #username: root
+    #password:
   jpa:
     show-sql: true
     hibernate:
